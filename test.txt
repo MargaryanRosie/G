@@ -1,3 +1,0 @@
-hello
-world
-get_next_line

@@ -6,21 +6,12 @@
 /*   By: romargar <romargar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:57:25 by romargar          #+#    #+#             */
-/*   Updated: 2025/04/05 17:01:36 by romargar         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:20:44 by romargar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 1024
-# endif
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-
-# endif
 
 # include <fcntl.h>
 # include <limits.h>
@@ -28,6 +19,14 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 1024
+# endif
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 char	*get_next_line(int fd);
 int		find_newline(char *str);
