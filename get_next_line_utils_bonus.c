@@ -6,7 +6,7 @@
 /*   By: romargar <romargar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:58:00 by romargar          #+#    #+#             */
-/*   Updated: 2025/04/05 20:06:45 by romargar         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:03:55 by romargar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,12 @@ char	*ft_strjoin(char *str1, char *str2)
 	int		j;
 
 	if (!str1 || !str2)
-		return (NULL);
+		return (free(str1), NULL);
 	new_string = (char *)malloc(sizeof(char) * (ft_strlen(str1)
 				+ ft_strlen(str2) + 1));
 	if (!new_string)
-	{
-		free (str1);
-		return (NULL);
-	}
-		i = 0;
+		return (free(str1), NULL);
+	i = 0;
 	while (str1[i])
 	{
 		new_string[i] = str1[i];
@@ -87,6 +84,7 @@ char	*ft_strjoin(char *str1, char *str2)
 	while (str2[j])
 		new_string[i++] = str2[j++];
 	new_string[i] = '\0';
+	free(str1);
 	return (new_string);
 }
 

@@ -6,39 +6,11 @@
 /*   By: romargar <romargar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:56:59 by romargar          #+#    #+#             */
-/*   Updated: 2025/04/05 19:58:28 by romargar         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:08:27 by romargar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
-int	read_file(int fd, char **remaining_part)
-{
-	char	*file_content;
-	int		bytes_read;
-
-	file_content = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!file_content)
-		return (-1);
-	while (1)
-	{
-		bytes_read = read(fd, file_content, BUFFER_SIZE);
-		if (bytes_read == -1)
-			return (free(file_content), -1);
-		if (bytes_read == 0)
-			break ;
-		file_content[bytes_read] = '\0';
-		*remaining_part = ft_strjoin(*remaining_part, file_content);
-		if (!*remaining_part)
-			return (-1);
-		if (find_newline(file_content) != -1)
-			break ;
-	}
-	free(file_content);
-	if (bytes_read == 0)
-		return (0);
-	return (1);
-}
 
 char	*extract_line(char *str)
 {
@@ -85,6 +57,34 @@ char	*get_remaining(char *str)
 	remaining_part[remaining_length] = '\0';
 	free(str);
 	return (remaining_part);
+}
+
+int	read_file(int fd, char **remaining_part)
+{
+	char	*file_content;
+	int		bytes_read;
+
+	file_content = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!file_content)
+		return (-1);
+	while (1)
+	{
+		bytes_read = read(fd, file_content, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			free(file_content);
+			return (-1);
+		}
+		if (bytes_read == 0)
+			return (free(file_content), 0);
+		file_content[bytes_read] = '\0';
+		*remaining_part = ft_strjoin(*remaining_part, file_content);
+		if (!*remaining_part)
+			return (-1);
+		if (find_newline(file_content) != -1)
+			break ;
+	}
+	return (free(file_content), 1);
 }
 
 char	*get_next_line(int fd)
